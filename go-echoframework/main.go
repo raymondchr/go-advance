@@ -10,6 +10,25 @@ import (
 // M is map
 type M map[string]interface{}
 
+// ActionHome uses http package to handle the page
+var ActionHome = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("this is ActionHome"))
+})
+
+// ActionAbout uses echo WrapHandler to handle the page
+var ActionAbout = echo.WrapHandler(
+	http.HandlerFunc(
+		func(w http.ResponseWriter, r *http.Request) {
+			w.Write([]byte("this is action about"))
+		},
+	),
+)
+
+// ActionIndex is the basic handler
+var ActionIndex = func(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("from action index"))
+}
+
 func main() {
 	r := echo.New()
 
@@ -40,5 +59,11 @@ func main() {
 
 		return ctx.String(http.StatusOK, data)
 	})
+
+	r.GET("/index", echo.WrapHandler(http.HandlerFunc(ActionIndex)))
+	r.GET("/home", echo.WrapHandler(ActionHome))
+	r.GET("/action", ActionAbout)
+	r.Static("/static", "assets")
+
 	r.Start(":9000")
 }

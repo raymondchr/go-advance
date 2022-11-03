@@ -43,7 +43,6 @@ func main() {
 				case "lte":
 					report.Message = fmt.Sprintf("%s value must be lower than %s", err.Field(), err.Param())
 				}
-				break
 			}
 		}
 		c.Logger().Error(report)
@@ -58,9 +57,9 @@ func main() {
 			return err
 		}
 
-		// if err := c.Validate(u); err != nil {
-		// 	return err
-		// }
+		if err := c.Validate(u); err != nil {
+			return err
+		}
 
 		return c.JSON(http.StatusOK, true)
 	})

@@ -1,4 +1,4 @@
-git package main
+package main
 
 import (
 	"fmt"

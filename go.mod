@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/go-playground/validator v9.31.0+incompatible
+	github.com/gorilla/mux v1.8.0
 	github.com/labstack/echo v3.3.10+incompatible
 	github.com/sirupsen/logrus v1.9.0
 )
